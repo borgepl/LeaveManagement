@@ -1,7 +1,14 @@
+using LeaveManagement.Web.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Our own Services Extentions
+builder.Services.AddMyAppServices(builder.Configuration);
+builder.Services.AddMyIdentityServices(builder.Configuration);
+
 
 var app = builder.Build();
 
