@@ -1,5 +1,6 @@
 using LeaveManagement.Web.Configurations;
 using LeaveManagement.Web.Data;
+using LeaveManagement.Web.UoW;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagement.Web.Extensions
@@ -16,6 +17,7 @@ namespace LeaveManagement.Web.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MapperConfig));
             
             services.AddCors(opt =>
