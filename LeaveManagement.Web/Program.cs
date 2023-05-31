@@ -3,6 +3,8 @@ using LeaveManagement.Web.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages(); // used for identity pages
+
 builder.Services.AddControllersWithViews();
 
 // Our own Services Extentions
@@ -27,8 +29,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapRazorPages();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();

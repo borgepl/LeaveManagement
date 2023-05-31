@@ -1,4 +1,5 @@
 using LeaveManagement.Web.Data;
+using LeaveManagement.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
@@ -9,7 +10,7 @@ namespace LeaveManagement.Web.Extensions
         public static IServiceCollection AddMyIdentityServices(this IServiceCollection services,  IConfiguration config)
         {
             
-            services.AddIdentity<Employee, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -28,7 +29,7 @@ namespace LeaveManagement.Web.Extensions
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            //services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, EmailDummySender>();
 
             services.AddAuthorization();
 

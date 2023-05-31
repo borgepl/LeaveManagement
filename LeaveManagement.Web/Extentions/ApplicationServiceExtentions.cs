@@ -1,6 +1,8 @@
 using LeaveManagement.Web.Configurations;
 using LeaveManagement.Web.Data;
+using LeaveManagement.Web.Services;
 using LeaveManagement.Web.UoW;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagement.Web.Extensions
@@ -17,6 +19,7 @@ namespace LeaveManagement.Web.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
            
+            //services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagement.com"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MapperConfig));
             
