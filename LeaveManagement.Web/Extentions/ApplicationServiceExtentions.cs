@@ -18,7 +18,9 @@ namespace LeaveManagement.Web.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
            
+            // email smtp to use with PaperCut Smtp on localhost
             //services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagement.com"));
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDBInitializer, DBInitializer>();
 
