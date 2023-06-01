@@ -36,7 +36,8 @@ namespace LeaveManagement.Web.Data
                     Lastname = "User",
                     PhoneNumber = "123456789",
                     DateOfBirth = Convert.ToDateTime("1988/12/20"),
-                    DateJoined = DateTime.Now
+                    DateJoined = DateTime.Now,
+                    EmailConfirmed = true
                  }, "User123!");
 
                 Employee adminUser = await unitOfWork.Employee.GetAsync(u => u.Email == adminEmail);
