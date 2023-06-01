@@ -1,8 +1,7 @@
 using LeaveManagement.Web.Configurations;
 using LeaveManagement.Web.Data;
-using LeaveManagement.Web.Services;
+using LeaveManagement.Web.DBInit;
 using LeaveManagement.Web.UoW;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagement.Web.Extensions
@@ -21,6 +20,8 @@ namespace LeaveManagement.Web.Extensions
            
             //services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagement.com"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDBInitializer, DBInitializer>();
+
             services.AddAutoMapper(typeof(MapperConfig));
             
             services.AddCors(opt =>

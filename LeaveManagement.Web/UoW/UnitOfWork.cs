@@ -9,10 +9,13 @@ namespace LeaveManagement.Web.UoW
         private readonly ApplicationDbContext dbContext;
         public ILeaveTypeRepository LeaveType { get; private set;}
 
+        public IEmployeeRepository Employee { get; private set;}
+
         public UnitOfWork(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
             this.LeaveType = new LeaveTypeRepository(dbContext);
+            this.Employee = new EmployeeRepository(dbContext);
         }
         
 

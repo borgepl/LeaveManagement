@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LeaveManagement.Web.Contracts;
 using LeaveManagement.Web.Data;
@@ -51,6 +52,21 @@ namespace LeaveManagement.Web.Repositories
                 return null;
             }
             return await dbSet.FindAsync(id);
+        }
+
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string includeProperties = null)
+        {
+            IQueryable<T> query = dbSet;
+            query = query.Where(filter);
+             if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries ))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return await query.FirstOrDefaultAsync();
         }
 
         public void UpdateAsync(T entity)
