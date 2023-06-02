@@ -128,5 +128,16 @@ namespace LeaveManagement.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: LeaveTypes/AllocateLeave/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateLeave(int id)
+        {
+            await unitOfWork.LeaveAllocation.LeaveAllocation(id);
+            unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

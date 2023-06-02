@@ -1,6 +1,8 @@
 using LeaveManagement.Web.Configurations;
+using LeaveManagement.Web.Contracts;
 using LeaveManagement.Web.Data;
 using LeaveManagement.Web.DBInit;
+using LeaveManagement.Web.Repositories;
 using LeaveManagement.Web.UoW;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +25,7 @@ namespace LeaveManagement.Web.Extensions
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDBInitializer, DBInitializer>();
+            services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
 
             services.AddAutoMapper(typeof(MapperConfig));
             
