@@ -18,6 +18,8 @@ namespace LeaveManagement.Web.UoW
 
         public ILeaveAllocationRepository LeaveAllocation { get; private set;}
 
+         public ILeaveRequestRepository LeaveRequest{ get; private set;}
+
         public UnitOfWork(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IMapper mapper)
         {
             this.dbContext = dbContext;
@@ -26,6 +28,7 @@ namespace LeaveManagement.Web.UoW
             this.LeaveType = new LeaveTypeRepository(dbContext);
             this.LeaveAllocation = new LeaveAllocationRepository(dbContext, userManager, this.LeaveType, this.mapper);
             this.Employee = new EmployeeRepository(dbContext);
+            this.LeaveRequest = new LeaveRequestRepository(dbContext);
         }
         
 
