@@ -1,3 +1,4 @@
+using AutoMapper;
 using LeaveManagement.Web.Contracts;
 using LeaveManagement.Web.Data;
 using LeaveManagement.Web.Repositories;
@@ -9,17 +10,21 @@ namespace LeaveManagement.Web.UoW
     {
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IMapper mapper;
+
         public ILeaveTypeRepository LeaveType { get; private set;}
 
         public IEmployeeRepository Employee { get; private set;}
 
         public ILeaveAllocationRepository LeaveAllocation { get; private set;}
 
-        public UnitOfWork(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
+        public UnitOfWork(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IMapper mapper)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
+            this.mapper = mapper;
             this.LeaveType = new LeaveTypeRepository(dbContext);
-            this.LeaveAllocation = new LeaveAllocationRepository(dbContext, userManager, this.LeaveType);
+            this.LeaveAllocation = new LeaveAllocationRepository(dbContext, userManager, this.LeaveType, this.mapper);
             this.Employee = new EmployeeRepository(dbContext);
         }
         

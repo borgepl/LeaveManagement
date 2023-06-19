@@ -1,6 +1,7 @@
 using AutoMapper;
 using LeaveManagement.Web.Data;
 using LeaveManagement.Web.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LeaveManagement.Web.Configurations
 {
@@ -9,6 +10,12 @@ namespace LeaveManagement.Web.Configurations
         public MapperConfig()
         {
             CreateMap<LeaveType, LeaveTypeVM>().ReverseMap();
+            CreateMap<Employee, EmployeeListVM>();
+            CreateMap<IdentityUser, EmployeeListVM>()
+                .ForMember(d => d.Firstname, o => o.MapFrom(s => s.Email));
+            CreateMap<Employee, EmployeeAllocationVM>().ReverseMap();
+            CreateMap<LeaveAllocation, LeaveAllocationVM>().ReverseMap();
+            CreateMap<LeaveAllocation, LeaveAllocationEditVM>().ReverseMap();
         }
     }
 }
