@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using LeaveManagement.Web.Contracts;
 using LeaveManagement.Web.Data;
 using LeaveManagement.Web.Models;
-using LeaveManagement.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 
 namespace LeaveManagement.Web.Repositories
 {
@@ -143,8 +139,10 @@ namespace LeaveManagement.Web.Repositories
         public async Task<List<LeaveRequestVM>> GetAllAsync(string employeeId)
         {
             var leaveRequestForEmployee = await context.LeaveRequests
-                                                    .Where(q => q.RequestingEmployeeId == employeeId).ToListAsync();
-            return mapper.Map<List<LeaveRequestVM>>(leaveRequestForEmployee);
+                                                    .Where(q => q.RequestingEmployeeId == employeeId)
+                                                    .ProjectTo<LeaveRequestVM>(configurationProvider)
+                                                    .ToListAsync();
+            return leaveRequestForEmployee;
         }
 
         public async Task<LeaveRequestVM> GetLeaveRequestAsync(int? id)
