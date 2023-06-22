@@ -20,7 +20,7 @@ namespace LeaveManagement.Web.Extensions
                 // options.Password.RequireDigit = true;
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
-                options.SignIn.RequireConfirmedEmail = true;
+                // options.SignIn.RequireConfirmedEmail = true;
                 // options.SignIn.RequireConfirmedAccount = true;
             });
 

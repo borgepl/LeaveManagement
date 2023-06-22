@@ -11,7 +11,6 @@ namespace LeaveManagement.Web.UoW
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<IdentityUser> userManager;
         private readonly IMapper mapper;
-
         public ILeaveTypeRepository LeaveType { get; private set;}
 
         public IEmployeeRepository Employee { get; private set;}
@@ -28,7 +27,7 @@ namespace LeaveManagement.Web.UoW
             this.LeaveType = new LeaveTypeRepository(dbContext);
             this.LeaveAllocation = new LeaveAllocationRepository(dbContext, userManager, this.LeaveType, this.mapper);
             this.Employee = new EmployeeRepository(dbContext);
-            this.LeaveRequest = new LeaveRequestRepository(dbContext);
+            //this.LeaveRequest = new LeaveRequestRepository(dbContext, this.mapper,);
         }
         
 

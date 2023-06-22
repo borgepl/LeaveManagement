@@ -22,11 +22,14 @@ namespace LeaveManagement.Web.Extensions
            
             // email smtp to use with PaperCut Smtp on localhost
             //services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagement.com"));
-            
+            services.AddHttpContextAccessor();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDBInitializer, DBInitializer>();
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
-
+            services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+            services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+            
             services.AddAutoMapper(typeof(MapperConfig));
             
             services.AddCors(opt =>
