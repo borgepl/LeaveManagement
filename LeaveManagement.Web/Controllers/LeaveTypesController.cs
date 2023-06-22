@@ -96,7 +96,9 @@ namespace LeaveManagement.Web.Controllers
             {
                 try
                 {
-                    var leaveType = mapper.Map<LeaveType>(leaveTypeVM);
+                    var leaveType = await unitOfWork.LeaveType.GetAsync(id);
+                    mapper.Map(leaveTypeVM, leaveType);
+                    
                     unitOfWork.LeaveType.UpdateAsync(leaveType);
                     unitOfWork.Save();
 

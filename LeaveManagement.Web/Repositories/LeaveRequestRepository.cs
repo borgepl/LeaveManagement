@@ -21,12 +21,13 @@ namespace LeaveManagement.Web.Repositories
         private readonly UserManager<IdentityUser> userManager;
         
         public LeaveRequestRepository(ApplicationDbContext context, 
-            IMapper mapper, 
-            IHttpContextAccessor httpContextAccessor,
+            UserManager<IdentityUser> userManager,
             ILeaveAllocationRepository leaveAllocationRepository,
+            IMapper mapper,
             AutoMapper.IConfigurationProvider configurationProvider,
-            IEmailSender emailSender,
-            UserManager<IdentityUser> userManager) : base(context)
+            IHttpContextAccessor httpContextAccessor,
+            IEmailSender emailSender
+            ) : base(context)
         {
             this.context = context;
             this.mapper = mapper;
@@ -108,8 +109,8 @@ namespace LeaveManagement.Web.Repositories
             await AddAsync(leaveRequest);
             await context.SaveChangesAsync();
 
-            // await emailSender.SendEmailAsync(user.Email, "Leave Request Submitted Successfully", $"Your leave request from " +
-            //     $"{leaveRequest.StartDate} to {leaveRequest.EndDate} has been submitted for approval");
+            await emailSender.SendEmailAsync(user.Email, "Leave Request Submitted Successfully", $"Your leave request from " +
+                 $"{leaveRequest.StartDate} to {leaveRequest.EndDate} has been submitted for approval");
 
             return true;
         }
