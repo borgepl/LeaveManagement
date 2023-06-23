@@ -12,11 +12,14 @@ namespace LeaveManagement.Web.Controllers
        {
         private readonly ILeaveRequestRepository leaveRequestRepository;
         private readonly ILeaveTypeRepository leaveTypeRepository;
+        private readonly ILogger<LeaveRequestsController> logger;
 
-        public LeaveRequestsController(ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository)
+        public LeaveRequestsController(ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository,
+                ILogger<LeaveRequestsController> logger)
         {
             this.leaveRequestRepository = leaveRequestRepository;
             this.leaveTypeRepository = leaveTypeRepository;
+            this.logger = logger;
         }
 
         [Authorize(Roles = Roles.Administrator)]
@@ -52,9 +55,9 @@ namespace LeaveManagement.Web.Controllers
             {
                 await leaveRequestRepository.ChangeApprovalStatus(id, approved);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                logger.LogError(ex, "Error Approving Leave Request");
                 throw;
             }
             return RedirectToAction(nameof(Index));
@@ -68,9 +71,9 @@ namespace LeaveManagement.Web.Controllers
             {
                 await leaveRequestRepository.CancelLeaveRequest(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                logger.LogError(ex, "Error Cancelling Leave request");
                 throw;
             }
             return RedirectToAction(nameof(MyLeave));

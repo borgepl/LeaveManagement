@@ -24,6 +24,7 @@ namespace LeaveManagement.Web.Controllers
         // GET: LeaveTypes
         public async Task<IActionResult> Index()
         {
+            // throw new Exception("Testing logging ...");
             var leaveTypes = mapper.Map<List<LeaveTypeVM>>(await unitOfWork.LeaveType.GetAllAsync());
             return View(leaveTypes); 
         }

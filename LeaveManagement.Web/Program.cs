@@ -1,5 +1,6 @@
 using LeaveManagement.Web.DBInit;
 using LeaveManagement.Web.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +9,19 @@ builder.Services.AddRazorPages(); // used for identity pages
 
 builder.Services.AddControllersWithViews();
 
+// Serilog
+builder.Host.UseSerilog((ctx, lc) => 
+    lc.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration));
+    
 // Our own Services Extentions
 builder.Services.AddMyAppServices(builder.Configuration);
 builder.Services.AddMyIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
